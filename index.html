@@ -38,40 +38,54 @@
         <h3>Logo Design for Local Café</h3>
         <p>Create a modern logo for a small local café. The logo should be simple, clean, and suitable for social media and print.</p>
         <p><strong>Deadline:</strong> March 10</p>
-        <a href="#submit-work">Submit Work</a>
+        <a href="#submit-work" class="scroll-link">Submit Work</a>
       </div>
       <div class="challenge">
         <h3>Website Design for Nonprofit Organization</h3>
         <p>Design a homepage layout for a nonprofit organization that focuses on community outreach.</p>
         <p><strong>Deadline:</strong> March 15</p>
-        <a href="#submit-work">Submit Work</a>
+        <a href="#submit-work" class="scroll-link">Submit Work</a>
       </div>
     </section>
-
-    <section id="submit-work" class="section submit-section">
-      <h1>Submit Your Work</h1>
-      <p>Please complete the form below to enter a challenge.</p>
-      <div class="iframe-wrap">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScHolwY_JJs9W6CjaF-xNmH-4g-SQQiduZ3P5aL7M4uxV8VkA/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-      </div>
-    </section>
-
-    <section id="past-winners" class="section">
-      <h1>Past Contest Winners</h1>
-      <div class="winner">
-        <h3>Logo Design for Local Café</h3>
-        <p><strong>Winner:</strong> Alex Johnson</p>
-        <p><strong>Date:</strong> February 2026</p>
-      </div>
-      <div class="winner">
-        <h3>Website Design for Nonprofit Organization</h3>
-        <p><strong>Winner:</strong> Maria Lopez</p>
-        <p><strong>Date:</strong> January 2026</p>
-      </div>
-    </section>
-
     <script>
       document.addEventListener('DOMContentLoaded', function(){
+        const navButtons = document.querySelectorAll('.main-nav .nav-button');
+        const sections = document.querySelectorAll('.section');
+        const scrollLinks = document.querySelectorAll('.scroll-link');
+
+        // Only show/hide sections, do not remove or lazy-load iframes
+        function showSection(id) {
+          sections.forEach(s => s.classList.toggle('active', s.id === id));
+          navButtons.forEach(b => b.classList.toggle('active', b.getAttribute('href') === '#' + id));
+        }
+
+        navButtons.forEach(btn => {
+          btn.addEventListener('click', function(e){
+            e.preventDefault();
+            const target = this.getAttribute('href').replace('#','');
+            showSection(target);
+            history.replaceState(null, '', '#' + target);
+          });
+        });
+
+        scrollLinks.forEach(link => {
+          link.addEventListener('click', function(e){
+            e.preventDefault();
+            showSection('submit-work');
+            history.replaceState(null, '', '#submit-work');
+            // Optionally scroll to the form
+            setTimeout(() => {
+              const formSection = document.getElementById('submit-work');
+              if (formSection) formSection.scrollIntoView({behavior:'smooth'});
+            }, 50);
+          });
+        });
+
+        // Initial state: show based on hash or default to home
+        const initial = location.hash ? location.hash.replace('#','') : 'home';
+        showSection(initial);
+      });
+    </script>
         const navButtons = document.querySelectorAll('.main-nav .nav-button');
         const sections = document.querySelectorAll('.section');
 
