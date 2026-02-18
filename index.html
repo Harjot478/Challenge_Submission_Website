@@ -75,50 +75,11 @@
         const navButtons = document.querySelectorAll('.main-nav .nav-button');
         const sections = document.querySelectorAll('.section');
 
-        function removeAllIframes() {
-          document.querySelectorAll('.iframe-wrap').forEach(w => {
-            const ex = w.querySelector('iframe');
-            if (ex) ex.remove();
-          });
-        }
 
-        function loadIframeForSection(sec) {
-          const wrap = sec.querySelector('.iframe-wrap');
-          if (wrap && wrap.dataset.src && !wrap.querySelector('iframe')) {
-            const ifr = document.createElement('iframe');
-            ifr.src = wrap.dataset.src;
-            ifr.width = '700';
-            ifr.height = '520';
-            ifr.style.width = '700px';
-            ifr.style.height = '520px';
-            ifr.setAttribute('frameborder', '0');
-            ifr.setAttribute('marginheight', '0');
-            ifr.setAttribute('marginwidth', '0');
-            ifr.textContent = 'Loading…';
-            ifr.loading = 'lazy';
-            ifr.title = sec.id + ' form';
-            wrap.appendChild(ifr);
-
-            // Attempt same-origin redirect detection (may be blocked for cross-origin)
-            ifr.addEventListener('load', () => {
-              try {
-                const href = ifr.contentWindow.location.href || '';
-                if (href.includes('formResponse') || href.includes('formResponse?') || href.includes('formResponse/')) {
-                  window.location.href = 'thankyou.html';
-                }
-              } catch (err) {
-                // Cross-origin iframe — cannot access location; no-op
-              }
-            });
-          }
-        }
-
+        // Only show/hide sections, do not remove or lazy-load iframes
         function showSection(id) {
           sections.forEach(s => s.classList.toggle('active', s.id === id));
           navButtons.forEach(b => b.classList.toggle('active', b.getAttribute('href') === '#' + id));
-          removeAllIframes();
-          const active = document.getElementById(id);
-          if (active) loadIframeForSection(active);
         }
 
         navButtons.forEach(btn => {
