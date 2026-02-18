@@ -80,10 +80,25 @@
             }, 50);
           });
         });
-
-        // Initial state: show based on hash or default to home
-        const initial = location.hash ? location.hash.replace('#','') : 'home';
-        showSection(initial);
+        <main id="home" class="section">
+          <h1>Student Challenge Platform</h1>
+          <p>
+            The Student Challenge Platform is a web-based system where companies can post creative and technical challenges, and students can submit their work to participate in these contests.
+          </p>
+          <h2>What Is This Platform?</h2>
+          <p>
+            This platform allows companies to submit challenges such as logo design, website design, or other creative projects. Students can view available challenges, submit their work, and compete for recognition and rewards. Selected winners are showcased on the website.
+          </p>
+          <h2>Who Is This Platform For?</h2>
+          <h3>For Companies</h3>
+          <p>
+            Companies can post challenges to receive creative ideas and solutions from students. They can review submissions, select winners, and highlight the best work.
+          </p>
+          <h3>For Students</h3>
+          <p>
+            Students can browse active challenges, submit their work, and gain experience by participating in real-world projects. Winning submissions are featured on the platform.
+          </p>
+        </main>
       });
     </script>
         const navButtons = document.querySelectorAll('.main-nav .nav-button');
@@ -109,6 +124,42 @@
         const initial = location.hash ? location.hash.replace('#','') : 'home';
         showSection(initial);
       });
-    </script>
-  </body>
-</html>
+        <script>
+          document.addEventListener('DOMContentLoaded', function(){
+            const navButtons = document.querySelectorAll('.main-nav .nav-button');
+            const sections = document.querySelectorAll('.section');
+            const scrollLinks = document.querySelectorAll('.scroll-link');
+
+            // Only show/hide sections, do not remove or lazy-load iframes
+            function showSection(id) {
+              sections.forEach(s => s.classList.toggle('active', s.id === id));
+              navButtons.forEach(b => b.classList.toggle('active', b.getAttribute('href') === '#' + id));
+            }
+
+            navButtons.forEach(btn => {
+              btn.addEventListener('click', function(e){
+                e.preventDefault();
+                const target = this.getAttribute('href').replace('#','');
+                showSection(target);
+                history.replaceState(null, '', '#' + target);
+              });
+            });
+
+            scrollLinks.forEach(link => {
+              link.addEventListener('click', function(e){
+                e.preventDefault();
+                showSection('submit-work');
+                history.replaceState(null, '', '#submit-work');
+                // Optionally scroll to the form
+                setTimeout(() => {
+                  const formSection = document.getElementById('submit-work');
+                  if (formSection) formSection.scrollIntoView({behavior:'smooth'});
+                }, 50);
+              });
+            });
+
+            // Initial state: show based on hash or default to home
+            const initial = location.hash ? location.hash.replace('#','') : 'home';
+            showSection(initial);
+          });
+        </script>
