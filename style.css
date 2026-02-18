@@ -29,3 +29,11 @@ main { padding: 28px 16px; max-width: 900px; margin: 0 auto; }
 	header { padding: 18px 28px; }
 }
 
+/* Submit Work section */
+.submit-section { padding: 24px 16px; background: #fbfdff; border-radius: 10px; margin: 28px auto; max-width: 960px; }
+.submit-section h1 { margin-bottom: 8px; color: #0b61a4; font-size: 1.5rem; }
+.submit-section p { margin-bottom: 18px; color: #333; }
+.iframe-wrap { display:flex; justify-content:center; }
+.iframe-wrap iframe { width: 100%; max-width: 840px; height: 1330px; border: 0; }
+
+
