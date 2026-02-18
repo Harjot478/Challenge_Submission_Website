@@ -26,6 +26,7 @@
 		<section id="post-challenge" class="section">
 			<h1>Post a Challenge (Company)</h1>
 			<p>Companies can add a new challenge here. (Placeholder content.)</p>
+			<div class="iframe-wrap" data-src="https://docs.google.com/forms/d/e/1FAIpQLSe-n_SjKz1GNjZTgG69zMcdIUNbDcvJOmAcNaXVi9Ei6SuOYQ/viewform?embedded=true"></div>
 		</section>
 
 		<section id="view-challenges" class="section">
@@ -84,27 +85,69 @@
 							});
 						}
 					} else {
-						if (iframeWrap) {
-							const existing = iframeWrap.querySelector('iframe');
-							if (existing) existing.remove();
-						}
-					}
-				}
+						<script>
+							document.addEventListener('DOMContentLoaded', function(){
+								const navButtons = document.querySelectorAll('.main-nav .nav-button');
+								const sections = document.querySelectorAll('.section');
 
-				navButtons.forEach(btn => {
-					btn.addEventListener('click', function(e){
-						e.preventDefault();
-						const target = this.getAttribute('href').replace('#','');
-						showSection(target);
-						history.replaceState(null, '', '#' + target);
-					});
-				});
+								function removeAllIframes() {
+									document.querySelectorAll('.iframe-wrap').forEach(w => {
+										const ex = w.querySelector('iframe');
+										if (ex) ex.remove();
+									});
+								}
 
-				// Initial state: show based on hash or default to home
-				const initial = location.hash ? location.hash.replace('#','') : 'home';
-				showSection(initial);
-			});
-		</script>
-	</body>
-</html>
+								function loadIframeForSection(sec) {
+									const wrap = sec.querySelector('.iframe-wrap');
+									if (wrap && wrap.dataset.src && !wrap.querySelector('iframe')) {
+										const ifr = document.createElement('iframe');
+										ifr.src = wrap.dataset.src;
+										ifr.width = '700';
+										ifr.height = '520';
+										ifr.style.width = '700px';
+										ifr.style.height = '520px';
+										ifr.setAttribute('frameborder', '0');
+										ifr.setAttribute('marginheight', '0');
+										ifr.setAttribute('marginwidth', '0');
+										ifr.textContent = 'Loading…';
+										ifr.loading = 'lazy';
+										ifr.title = sec.id + ' form';
+										wrap.appendChild(ifr);
+
+										// Attempt same-origin redirect detection (may be blocked for cross-origin)
+										ifr.addEventListener('load', () => {
+											try {
+												const href = ifr.contentWindow.location.href || '';
+												if (href.includes('formResponse') || href.includes('formResponse?') || href.includes('formResponse/')) {
+													window.location.href = 'thankyou.html';
+												}
+											} catch (err) {
+												// Cross-origin iframe — cannot access location; no-op
+											}
+										});
+									}
+								}
+
+								function showSection(id) {
+									sections.forEach(s => s.classList.toggle('active', s.id === id));
+									navButtons.forEach(b => b.classList.toggle('active', b.getAttribute('href') === '#' + id));
+									removeAllIframes();
+									const active = document.getElementById(id);
+									if (active) loadIframeForSection(active);
+								}
+
+								navButtons.forEach(btn => {
+									btn.addEventListener('click', function(e){
+										e.preventDefault();
+										const target = this.getAttribute('href').replace('#','');
+										showSection(target);
+										history.replaceState(null, '', '#' + target);
+									});
+								});
+
+								// Initial state: show based on hash or default to home
+								const initial = location.hash ? location.hash.replace('#','') : 'home';
+								showSection(initial);
+							});
+						</script>
 
