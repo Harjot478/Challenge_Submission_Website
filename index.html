@@ -18,18 +18,78 @@
 			</nav>
 		</header>
 
-		<main id="home">
+		<main id="home" class="section">
 			<h1>Welcome to the Challenge Submission Portal</h1>
 			<p>Use the navigation above to explore the site.</p>
 		</main>
 
-		<section id="submit-work" class="submit-section">
+		<section id="post-challenge" class="section">
+			<h1>Post a Challenge</h1>
+			<p>Companies can add a new challenge here. (Placeholder content.)</p>
+		</section>
+
+		<section id="view-challenges" class="section">
+			<h1>View Challenges</h1>
+			<p>Students can browse current challenges. (Placeholder content.)</p>
+		</section>
+
+		<section id="submit-work" class="section submit-section">
 			<h1>Submit Your Work</h1>
 			<p>Please complete the form below to enter a challenge.</p>
-			<div class="iframe-wrap">
-				<iframe src="https://docs.google.com/forms/d/e/1FAIpQLScHolwY_JJs9W6CjaF-xNmH-4g-SQQiduZ3P5aL7M4uxV8VkA/viewform?embedded=true" width="640" height="1330" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-			</div>
+			<div class="iframe-wrap" data-src="https://docs.google.com/forms/d/e/1FAIpQLScHolwY_JJs9W6CjaF-xNmH-4g-SQQiduZ3P5aL7M4uxV8VkA/viewform?embedded=true"></div>
 		</section>
+
+		<section id="past-winners" class="section">
+			<h1>Past Winners</h1>
+			<p>See previous winners and their submissions. (Placeholder content.)</p>
+		</section>
+
+		<script>
+			document.addEventListener('DOMContentLoaded', function(){
+				const navButtons = document.querySelectorAll('.main-nav .nav-button');
+				const sections = document.querySelectorAll('.section');
+				const iframeWrap = document.querySelector('#submit-work .iframe-wrap');
+
+				function showSection(id) {
+					sections.forEach(s => s.classList.toggle('active', s.id === id));
+					navButtons.forEach(b => b.classList.toggle('active', b.getAttribute('href') === '#' + id));
+
+					// Lazy-load the iframe when submit-work is shown; remove when hidden
+					if (id === 'submit-work') {
+						if (iframeWrap && !iframeWrap.querySelector('iframe')) {
+							const ifr = document.createElement('iframe');
+							ifr.src = iframeWrap.dataset.src;
+							ifr.width = '640';
+							ifr.height = '1330';
+							ifr.frameBorder = '0';
+							ifr.marginHeight = '0';
+							ifr.marginWidth = '0';
+							ifr.loading = 'lazy';
+							ifr.title = 'Submit Work Form';
+							iframeWrap.appendChild(ifr);
+						}
+					} else {
+						if (iframeWrap) {
+							const existing = iframeWrap.querySelector('iframe');
+							if (existing) existing.remove();
+						}
+					}
+				}
+
+				navButtons.forEach(btn => {
+					btn.addEventListener('click', function(e){
+						e.preventDefault();
+						const target = this.getAttribute('href').replace('#','');
+						showSection(target);
+						history.replaceState(null, '', '#' + target);
+					});
+				});
+
+				// Initial state: show based on hash or default to home
+				const initial = location.hash ? location.hash.replace('#','') : 'home';
+				showSection(initial);
+			});
+		</script>
 	</body>
 </html>
 

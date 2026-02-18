@@ -36,4 +36,12 @@ main { padding: 28px 16px; max-width: 900px; margin: 0 auto; }
 .iframe-wrap { display:flex; justify-content:center; }
 .iframe-wrap iframe { width: 100%; max-width: 840px; height: 1330px; border: 0; }
 
+/* Section visibility and nav active state */
+.section { display: none; padding: 20px 16px; max-width: 960px; margin: 18px auto; }
+.section.active { display: block; }
+.nav-button.active { background: rgba(255,255,255,0.16); box-shadow: 0 8px 20px rgba(11,97,164,0.14); }
+
+/* Ensure main (home) uses section rules */
+main.section { background: transparent; padding-top: 22px; }
+
 
