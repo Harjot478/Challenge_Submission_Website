@@ -59,13 +59,14 @@
 						if (iframeWrap && !iframeWrap.querySelector('iframe')) {
 							const ifr = document.createElement('iframe');
 							ifr.src = iframeWrap.dataset.src;
-							ifr.width = '100%';
-							ifr.height = '1200';
-							ifr.style.width = '100%';
-							ifr.style.height = '1200px';
-							ifr.frameBorder = '0';
-							ifr.marginHeight = '0';
-							ifr.marginWidth = '0';
+							ifr.width = '700';
+							ifr.height = '520';
+							ifr.style.width = '700px';
+							ifr.style.height = '520px';
+							ifr.setAttribute('frameborder', '0');
+							ifr.setAttribute('marginheight', '0');
+							ifr.setAttribute('marginwidth', '0');
+							ifr.textContent = 'Loading…';
 							ifr.loading = 'lazy';
 							ifr.title = 'Submit Work Form';
 							iframeWrap.appendChild(ifr);
@@ -74,7 +75,6 @@
 							ifr.addEventListener('load', () => {
 								try {
 									const href = ifr.contentWindow.location.href || '';
-									// Google Forms submission may navigate to a response URL; adjust checks if needed
 									if (href.includes('formResponse') || href.includes('formResponse?') || href.includes('formResponse/')) {
 										window.location.href = 'thankyou.html';
 									}
