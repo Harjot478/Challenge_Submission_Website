@@ -59,14 +59,29 @@
 						if (iframeWrap && !iframeWrap.querySelector('iframe')) {
 							const ifr = document.createElement('iframe');
 							ifr.src = iframeWrap.dataset.src;
-							ifr.width = '640';
-							ifr.height = '1330';
+							ifr.width = '100%';
+							ifr.height = '1200';
+							ifr.style.width = '100%';
+							ifr.style.height = '1200px';
 							ifr.frameBorder = '0';
 							ifr.marginHeight = '0';
 							ifr.marginWidth = '0';
 							ifr.loading = 'lazy';
 							ifr.title = 'Submit Work Form';
 							iframeWrap.appendChild(ifr);
+
+							// If the iframe is same-origin we can detect navigation after submit
+							ifr.addEventListener('load', () => {
+								try {
+									const href = ifr.contentWindow.location.href || '';
+									// Google Forms submission may navigate to a response URL; adjust checks if needed
+									if (href.includes('formResponse') || href.includes('formResponse?') || href.includes('formResponse/')) {
+										window.location.href = 'thankyou.html';
+									}
+								} catch (err) {
+									// Cross-origin iframe — cannot access location; no-op
+								}
+							});
 						}
 					} else {
 						if (iframeWrap) {
