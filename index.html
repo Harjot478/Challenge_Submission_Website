@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Challenge Submission</title>
+    <title>Student Challenge Platform</title>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
@@ -17,110 +17,102 @@
       </nav>
     </header>
 
-    <!-- Navigation bar above removed as requested; only main nav remains. -->
-
-    <main id="home" class="section">
-      <h1>Student Challenge Platform</h1>
-      <p>
-        The Student Challenge Platform is a web-based system where companies can post creative and technical challenges, and students can submit their work to participate in these contests.
-      </p>
-      <h2>What Is This Platform?</h2>
-      <p>
-        This platform allows companies to submit challenges such as logo design, website design, or other creative projects. Students can view available challenges, submit their work, and compete for recognition and rewards. Selected winners are showcased on the website.
-      </p>
-      <h2>Who Is This Platform For?</h2>
-      <h3>For Companies</h3>
-      <p>
-        Companies can post challenges to receive creative ideas and solutions from students. They can review submissions, select winners, and highlight the best work.
-      </p>
-      <h3>For Students</h3>
-      <p>
-        Students can browse active challenges, submit their work, and gain experience by participating in real-world projects. Winning submissions are featured on the platform.
-      </p>
-    </main>
-
-    <section id="post-challenge" class="section">
-      <h1>Post a Challenge (Company)</h1>
-      <p>Companies can add a new challenge here.</p>
-      <div class="iframe-wrap">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe-n_SjKz1GNjZTgG69zMcdIUNbDcvJOmAcNaXVi9Ei6SuOYQ/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-      </div>
-    </section>
-
-    <section id="view-challenges" class="section">
-      <h1>Available Challenges</h1>
-      <div class="challenge">
-        <h3>Logo Design for Local Café</h3>
-        <p>Create a modern logo for a small local café. The logo should be simple, clean, and suitable for social media and print.</p>
-        <p><strong>Deadline:</strong> March 10</p>
-        <a href="#submit-work" class="scroll-link">Submit Work</a>
-      </div>
-      <div class="challenge">
-        <h3>Website Design for Nonprofit Organization</h3>
-        <p>Design a homepage layout for a nonprofit organization that focuses on community outreach.</p>
-        <p><strong>Deadline:</strong> March 15</p>
-        <a href="#submit-work" class="scroll-link">Submit Work</a>
-      </div>
-    </section>
-    <script>
-      document.addEventListener('DOMContentLoaded', function(){
-        const navButtons = document.querySelectorAll('.main-nav .nav-button');
-        const sections = document.querySelectorAll('.section');
-        const scrollLinks = document.querySelectorAll('.scroll-link');
-
-        // Only show/hide sections, do not remove or lazy-load iframes
-        function showSection(id) {
-          sections.forEach(s => s.classList.toggle('active', s.id === id));
-          navButtons.forEach(b => b.classList.toggle('active', b.getAttribute('href') === '#' + id));
-        }
-
-        navButtons.forEach(btn => {
-          btn.addEventListener('click', function(e){
-            e.preventDefault();
-            const target = this.getAttribute('href').replace('#','');
-            showSection(target);
-            history.replaceState(null, '', '#' + target);
-          });
-        });
-
-        scrollLinks.forEach(link => {
-          link.addEventListener('click', function(e){
-            e.preventDefault();
-            showSection('submit-work');
-            history.replaceState(null, '', '#submit-work');
-            // Optionally scroll to the form
-            setTimeout(() => {
-              const formSection = document.getElementById('submit-work');
-              if (formSection) formSection.scrollIntoView({behavior:'smooth'});
-            }, 50);
-          });
-        });
-        <main id="home" class="section">
+    <main>
+      <section id="home" class="section">
+        <div class="container">
           <h1>Student Challenge Platform</h1>
           <p>
             The Student Challenge Platform is a web-based system where companies can post creative and technical challenges, and students can submit their work to participate in these contests.
           </p>
+
           <h2>What Is This Platform?</h2>
           <p>
             This platform allows companies to submit challenges such as logo design, website design, or other creative projects. Students can view available challenges, submit their work, and compete for recognition and rewards. Selected winners are showcased on the website.
           </p>
+
           <h2>Who Is This Platform For?</h2>
+
           <h3>For Companies</h3>
           <p>
             Companies can post challenges to receive creative ideas and solutions from students. They can review submissions, select winners, and highlight the best work.
           </p>
+
           <h3>For Students</h3>
           <p>
             Students can browse active challenges, submit their work, and gain experience by participating in real-world projects. Winning submissions are featured on the platform.
           </p>
-        </main>
-      });
-    </script>
+        </div>
+      </section>
+
+      <section id="post-challenge" class="section">
+        <div class="container">
+          <h1>Post a Challenge (Company)</h1>
+          <p>Companies can add a new challenge here.</p>
+          <div class="iframe-wrap">
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe-n_SjKz1GNjZTgG69zMcdIUNbDcvJOmAcNaXVi9Ei6SuOYQ/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-challenges" class="section">
+        <div class="container">
+          <h1>Available Challenges</h1>
+          <div class="challenge">
+            <h3>Logo Design for Local Café</h3>
+            <p>Create a modern logo for a small local café. The logo should be simple, clean, and suitable for social media and print.</p>
+            <p><strong>Deadline:</strong> March 10</p>
+            <a class="cta" href="#submit-work">Submit Work</a>
+          </div>
+
+          <div class="challenge">
+            <h3>Website Design for Nonprofit Organization</h3>
+            <p>Design a homepage layout for a nonprofit organization that focuses on community outreach.</p>
+            <p><strong>Deadline:</strong> March 15</p>
+            <a class="cta" href="#submit-work">Submit Work</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="submit-work" class="section submit-section">
+        <div class="container">
+          <h1>Submit Your Work</h1>
+          <p>Please complete the form below to enter a challenge.</p>
+          <div class="iframe-wrap">
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScHolwY_JJs9W6CjaF-xNmH-4g-SQQiduZ3P5aL7M4uxV8VkA/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+          </div>
+        </div>
+      </section>
+
+      <section id="past-winners" class="section">
+        <div class="container">
+          <h1>Past Contest Winners</h1>
+          <div class="winner">
+            <h3>Logo Design for Local Café</h3>
+            <p><strong>Winner:</strong> Alex Johnson</p>
+            <p><strong>Date:</strong> February 2026</p>
+          </div>
+
+          <div class="winner">
+            <h3>Website Design for Nonprofit Organization</h3>
+            <p><strong>Winner:</strong> Maria Lopez</p>
+            <p><strong>Date:</strong> January 2026</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-row">
+        <p>&copy; 2026 Student Challenge Platform</p>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function(){
         const navButtons = document.querySelectorAll('.main-nav .nav-button');
         const sections = document.querySelectorAll('.section');
+        const ctas = document.querySelectorAll('.cta');
 
-
-        // Only show/hide sections, do not remove or lazy-load iframes
         function showSection(id) {
           sections.forEach(s => s.classList.toggle('active', s.id === id));
           navButtons.forEach(b => b.classList.toggle('active', b.getAttribute('href') === '#' + id));
@@ -132,47 +124,28 @@
             const target = this.getAttribute('href').replace('#','');
             showSection(target);
             history.replaceState(null, '', '#' + target);
+            // small delay then focus
+            setTimeout(() => document.getElementById(target).focus({preventScroll:true}), 100);
           });
         });
 
-        // Initial state: show based on hash or default to home
+        ctas.forEach(link => {
+          link.addEventListener('click', function(e){
+            // CTA links in challenges scroll to submit-work
+            e.preventDefault();
+            showSection('submit-work');
+            history.replaceState(null, '', '#submit-work');
+            setTimeout(()=>{
+              const formSection = document.getElementById('submit-work');
+              if (formSection) formSection.scrollIntoView({behavior:'smooth'});
+            }, 80);
+          });
+        });
+
+        // show initial section
         const initial = location.hash ? location.hash.replace('#','') : 'home';
         showSection(initial);
       });
-        <script>
-          document.addEventListener('DOMContentLoaded', function(){
-            const navButtons = document.querySelectorAll('.main-nav .nav-button');
-            const sections = document.querySelectorAll('.section');
-            const scrollLinks = document.querySelectorAll('.scroll-link');
-
-            function showSection(id) {
-              sections.forEach(s => s.classList.toggle('active', s.id === id));
-              navButtons.forEach(b => b.classList.toggle('active', b.getAttribute('href') === '#' + id));
-            }
-
-            navButtons.forEach(btn => {
-              btn.addEventListener('click', function(e){
-                e.preventDefault();
-                const target = this.getAttribute('href').replace('#','');
-                showSection(target);
-                history.replaceState(null, '', '#' + target);
-              });
-            });
-
-            scrollLinks.forEach(link => {
-              link.addEventListener('click', function(e){
-                e.preventDefault();
-                showSection('submit-work');
-                history.replaceState(null, '', '#submit-work');
-                setTimeout(() => {
-                  const formSection = document.getElementById('submit-work');
-                  if (formSection) formSection.scrollIntoView({behavior:'smooth'});
-                }, 50);
-              });
-            });
-
-            const initial = location.hash ? location.hash.replace('#','') : 'home';
-            showSection(initial);
-          });
-        </script>
-
+    </script>
+  </body>
+</html>
